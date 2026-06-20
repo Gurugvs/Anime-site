@@ -1,0 +1,665 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap');
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins', sans-serif;
+}
+
+body{
+background:linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 100%);
+color:#e0e0e0;
+min-height:100vh;
+}
+
+.app-content{
+display:none;
+}
+
+.login-overlay{
+position:fixed;
+inset:0;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:24px;
+background:radial-gradient(circle at top, rgba(255,102,0,.18), transparent 35%), rgba(10,10,18,.96);
+backdrop-filter:blur(8px);
+z-index:3000;
+}
+
+.login-card{
+width:min(100%, 420px);
+padding:36px;
+border-radius:24px;
+background:linear-gradient(145deg, rgba(34,34,40,.96), rgba(18,18,28,.96));
+border:1px solid rgba(255,102,0,.18);
+box-shadow:0 30px 80px rgba(0,0,0,.5);
+text-align:center;
+}
+
+.login-card h1{
+font-size:38px;
+margin-bottom:12px;
+background:linear-gradient(135deg, #FF6600, #FFB84D);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+background-clip:text;
+font-family:'Playfair Display', serif;
+}
+
+.login-card p{
+color:#b0b0b0;
+margin-bottom:18px;
+}
+
+.login-form{
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+.auth-tabs{
+display:grid;
+grid-template-columns:repeat(3, 1fr);
+gap:10px;
+margin:18px 0 20px;
+}
+
+.auth-tab{
+padding:12px 10px;
+border-radius:10px;
+background:#171720;
+color:#cfcfcf;
+box-shadow:none;
+}
+
+.auth-tab.is-active{
+background:linear-gradient(135deg, #FF6600, #FF8C42);
+color:#fff;
+}
+
+.auth-panel{
+display:none;
+}
+
+.auth-panel.is-active{
+display:flex;
+}
+
+.login-form input{
+padding:14px 16px;
+border-radius:12px;
+border:1px solid rgba(255,102,0,.18);
+background:#0f0f16;
+color:#fff;
+font-size:15px;
+}
+
+.login-form input:focus{
+outline:none;
+border-color:#FF6600;
+box-shadow:0 0 0 3px rgba(255,102,0,.15);
+}
+
+.login-form button{
+margin-top:6px;
+}
+
+.login-hint{
+display:flex;
+justify-content:space-between;
+gap:12px;
+margin-top:18px;
+font-size:12px;
+color:#9c9c9c;
+flex-wrap:wrap;
+}
+
+.login-error{
+min-height:20px;
+margin-top:10px;
+color:#ff8080;
+font-size:14px;
+}
+
+.header{
+position:fixed;
+top:0;
+width:100%;
+background:rgba(15,15,15,.95);
+backdrop-filter:blur(12px);
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 40px;
+z-index:1000;
+border-bottom:1px solid rgba(255,102,0,.1);
+box-shadow:0 4px 20px rgba(0,0,0,.3);
+}
+
+.logo{
+font-size:32px;
+font-weight:700;
+background:linear-gradient(135deg, #FF6600, #FFB84D);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+background-clip:text;
+cursor:pointer;
+font-family:'Playfair Display', serif;
+letter-spacing:1px;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+margin:0 15px;
+}
+
+.hero{
+height:100vh;
+background:url("https://images.unsplash.com/photo-1578632767115-351597cf2477")
+center/cover;
+display:flex;
+justify-content:center;
+align-items:center;
+margin-top:60px;
+position:relative;
+}
+
+.overlay{
+background:rgba(0,0,0,.7);
+padding:60px 50px;
+text-align:center;
+border-radius:20px;
+backdrop-filter:blur(10px);
+border:1px solid rgba(255,102,0,.2);
+max-width:600px;
+}
+
+.overlay h1{
+font-size:62px;
+font-weight:700;
+margin-bottom:20px;
+background:linear-gradient(135deg, #FF6600, #FFB84D);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+background-clip:text;
+font-family:'Playfair Display', serif;
+letter-spacing:2px;
+}
+
+.overlay p{
+font-size:18px;
+margin-bottom:30px;
+color:#b0b0b0;
+line-height:1.6;
+font-weight:300;
+}
+
+button{
+background:linear-gradient(135deg, #FF6600, #FF8C42);
+border:none;
+padding:14px 28px;
+border-radius:12px;
+color:white;
+cursor:pointer;
+font-weight:600;
+font-size:15px;
+transition:all 0.3s ease;
+box-shadow:0 4px 15px rgba(255,102,0,.3);
+}
+
+button:hover{
+transform:translateY(-2px);
+box-shadow:0 6px 20px rgba(255,102,0,.5);
+}
+
+button:active{
+transform:translateY(0);
+}
+
+.dashboard{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:25px;
+padding:60px 50px;
+margin-top:60px;
+}
+
+.admin-panel{
+display:none;
+padding:0 50px 20px;
+}
+
+.admin-panel-header{
+display:flex;
+justify-content:space-between;
+align-items:flex-end;
+gap:16px;
+margin-bottom:18px;
+}
+
+.admin-panel-header h2{
+font-size:28px;
+font-weight:700;
+font-family:'Playfair Display', serif;
+margin-bottom:6px;
+}
+
+.admin-panel-header p{
+color:#b0b0b0;
+}
+
+.anime-form{
+display:grid;
+grid-template-columns:repeat(2, minmax(0, 1fr));
+gap:14px;
+padding:24px;
+border-radius:18px;
+background:linear-gradient(135deg, rgba(255,102,0,.08), rgba(255,255,255,.03));
+border:1px solid rgba(255,102,0,.18);
+box-shadow:0 18px 40px rgba(0,0,0,.24);
+}
+
+.anime-form input,
+.anime-form textarea{
+padding:14px 16px;
+border-radius:12px;
+background:#222;
+color:white;
+border:1px solid rgba(255,102,0,.2);
+font-size:14px;
+font-family:'Poppins', sans-serif;
+transition:all 0.3s ease;
+width:100%;
+}
+
+.anime-form textarea{
+grid-column:1 / -1;
+resize:vertical;
+min-height:120px;
+}
+
+.anime-form input:focus,
+.anime-form textarea:focus{
+outline:none;
+border-color:#FF6600;
+box-shadow:0 0 10px rgba(255,102,0,.3);
+background:#2a2a2a;
+}
+
+.form-actions{
+grid-column:1 / -1;
+display:flex;
+gap:12px;
+flex-wrap:wrap;
+}
+
+.secondary-btn{
+background:transparent;
+border:1px solid rgba(255,102,0,.3);
+box-shadow:none;
+}
+
+.secondary-btn:hover{
+border-color:rgba(255,102,0,.6);
+box-shadow:none;
+background:rgba(255,102,0,.08);
+}
+
+.card{
+background:linear-gradient(135deg, rgba(255,102,0,.1), rgba(255,152,0,.05));
+backdrop-filter:blur(12px);
+padding:30px 25px;
+border-radius:15px;
+text-align:center;
+border:1px solid rgba(255,102,0,.2);
+transition:all 0.3s ease;
+}
+
+.card:hover{
+transform:translateY(-8px);
+border-color:rgba(255,102,0,.5);
+box-shadow:0 15px 40px rgba(255,102,0,.2);
+}
+
+.card h3{
+font-size:16px;
+font-weight:500;
+color:#b0b0b0;
+margin-bottom:15px;
+text-transform:uppercase;
+letter-spacing:1px;
+}
+
+.card span{
+font-size:42px;
+font-weight:700;
+background:linear-gradient(135deg, #FF6600, #FFB84D);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+background-clip:text;
+font-family:'Poppins', sans-serif;
+}
+
+.filters{
+padding:40px 50px;
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+justify-content:center;
+}
+
+.filters input,
+.filters select{
+padding:12px 16px;
+border-radius:10px;
+background:#222;
+color:white;
+border:1px solid rgba(255,102,0,.2);
+font-size:14px;
+font-family:'Poppins', sans-serif;
+transition:all 0.3s ease;
+}
+
+.filters input:focus,
+.filters select:focus{
+outline:none;
+border-color:#FF6600;
+box-shadow:0 0 10px rgba(255,102,0,.3);
+background:#2a2a2a;
+}
+
+#animeGrid,
+#favoriteGrid{
+padding:40px 50px;
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+gap:25px;
+}
+
+.anime-card{
+background:linear-gradient(135deg, #222, #1a1a2e);
+border-radius:15px;
+overflow:hidden;
+transition:all 0.3s ease;
+border:1px solid rgba(255,102,0,.1);
+}
+
+.anime-card:hover{
+transform:scale(1.05) translateY(-5px);
+border-color:rgba(255,102,0,.3);
+box-shadow:0 15px 40px rgba(255,102,0,.2);
+}
+
+.anime-card img{
+width:100%;
+height:300px;
+object-fit:cover;
+}
+
+.anime-content{
+padding:20px;
+}
+
+.anime-content h3{
+font-size:18px;
+font-weight:600;
+margin-bottom:12px;
+color:#e0e0e0;
+}
+
+.anime-content p{
+font-size:14px;
+color:#a0a0a0;
+margin-bottom:8px;
+line-height:1.5;
+}
+
+.btn-group{
+display:flex;
+flex-direction:column;
+gap:10px;
+margin-top:15px;
+}
+
+.btn-group button{
+padding:10px 14px;
+font-size:13px;
+background:linear-gradient(135deg, #FF6600, #FF8C42);
+border-radius:8px;
+}
+
+.btn-group button:hover{
+background:linear-gradient(135deg, #FF8C42, #FFB84D);
+}
+
+.modal{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.8);
+justify-content:center;
+align-items:center;
+z-index:2000;
+backdrop-filter:blur(4px);
+}
+
+.modal-content{
+background:linear-gradient(135deg, #1a1a2e, #222);
+padding:40px;
+border-radius:20px;
+display:flex;
+flex-direction:column;
+gap:15px;
+width:500px;
+max-height:80vh;
+overflow-y:auto;
+border:1px solid rgba(255,102,0,.2);
+box-shadow:0 20px 60px rgba(0,0,0,.5);
+}
+
+.modal-content h2{
+margin-bottom:20px;
+font-size:24px;
+font-weight:700;
+background:linear-gradient(135deg, #FF6600, #FFB84D);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+background-clip:text;
+}
+
+.modal-content input,
+.modal-content select,
+.modal-content textarea{
+padding:12px 15px;
+background:#0f0f0f;
+color:white;
+border:1px solid rgba(255,102,0,.2);
+border-radius:10px;
+font-size:14px;
+font-family:'Poppins', sans-serif;
+transition:all 0.3s ease;
+}
+
+.modal-content input:focus,
+.modal-content select:focus,
+.modal-content textarea:focus{
+outline:none;
+border-color:#FF6600;
+box-shadow:0 0 10px rgba(255,102,0,.3);
+background:#1a1a2e;
+}
+
+#saveAnime{
+background:linear-gradient(135deg, #4CAF50, #66BB6A);
+margin-top:15px;
+}
+
+#saveAnime:hover{
+background:linear-gradient(135deg, #66BB6A, #81C784);
+}
+
+#closeModal{
+background:linear-gradient(135deg, #f44336, #ef5350);
+}
+
+#closeModal:hover{
+background:linear-gradient(135deg, #ef5350, #e53935);
+}
+
+canvas{
+background:linear-gradient(135deg, #222, #1a1a2e);
+margin:30px 50px;
+padding:25px;
+border-radius:15px;
+border:1px solid rgba(255,102,0,.1);
+}
+
+#library h2,
+#favorites h2,
+#statistics h2{
+padding-left:50px;
+margin-top:50px;
+font-size:32px;
+font-weight:700;
+background:linear-gradient(135deg, #FF6600, #FFB84D);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+background-clip:text;
+letter-spacing:1px;
+}
+
+.header-right{
+display:flex;
+gap:12px;
+align-items:center;
+flex-wrap:wrap;
+}
+
+.header-right input{
+padding:10px 16px;
+border:1px solid rgba(255,102,0,.2);
+border-radius:10px;
+background:#222;
+color:white;
+min-width:200px;
+font-family:'Poppins', sans-serif;
+transition:all 0.3s ease;
+}
+
+.header-right input:focus{
+outline:none;
+border-color:#FF6600;
+box-shadow:0 0 10px rgba(255,102,0,.3);
+}
+
+.header-right button{
+padding:10px 20px;
+font-size:13px;
+}
+
+@media(max-width:992px){
+#animeGrid,
+#favoriteGrid{
+grid-template-columns:repeat(2,1fr);
+}
+
+.anime-form{
+grid-template-columns:1fr;
+}
+
+.modal-content{
+width:90%;
+}
+
+.overlay{
+padding:40px 30px;
+}
+
+.overlay h1{
+font-size:48px;
+}
+}
+
+@media(max-width:600px){
+#animeGrid,
+#favoriteGrid{
+grid-template-columns:1fr;
+}
+
+.overlay h1{
+font-size:36px;
+}
+
+.overlay p{
+font-size:16px;
+}
+
+.header{
+flex-direction:column;
+gap:12px;
+padding:15px 20px;
+}
+
+.header-right{
+flex-direction:column;
+width:100%;
+}
+
+.header-right input,
+.header-right button{
+width:100%;
+}
+
+.modal-content{
+width:95%;
+padding:25px;
+}
+
+.dashboard{
+padding:40px 20px;
+}
+
+.admin-panel{
+padding:0 20px 20px;
+}
+
+.admin-panel-header{
+flex-direction:column;
+align-items:flex-start;
+}
+
+.filters{
+padding:25px 20px;
+flex-direction:column;
+}
+
+.filters input,
+.filters select{
+width:100%;
+}
+
+#animeGrid,
+#favoriteGrid{
+padding:25px 15px;
+gap:15px;
+}
+
+.anime-card img{
+height:250px;
+}
+
+#library h2,
+#statistics h2{
+padding-left:20px;
+font-size:24px;
+}
+
+canvas{
+margin:20px 15px;
+padding:15px;
+}
+}

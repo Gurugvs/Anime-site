@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hanime - Anime Watch Tracker</title>
+<link rel="stylesheet" href="style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+</head>
+
+<body>
+
+<div id="loginOverlay" class="login-overlay">
+
+<div class="login-card">
+
+<h1>Hanime Access</h1>
+
+<p>Users can sign up with email and password. Admin login stays separate.</p>
+
+<div class="auth-tabs">
+<button type="button" class="auth-tab is-active" id="userLoginTab">User Login</button>
+<button type="button" class="auth-tab" id="signupTab">Sign Up</button>
+<button type="button" class="auth-tab" id="adminLoginTab">Admin Login</button>
+</div>
+
+<form id="userLoginForm" class="login-form auth-panel is-active">
+
+<input type="email" id="userLoginEmail" placeholder="Email" required>
+
+<input type="password" id="userLoginPassword" placeholder="Password" required>
+
+<button type="submit">Login</button>
+
+</form>
+
+<form id="signupForm" class="login-form auth-panel">
+
+<input type="email" id="signupEmail" placeholder="Email" required>
+
+<input type="password" id="signupPassword" placeholder="Password" required>
+
+<button type="submit">Create Account</button>
+
+</form>
+
+<form id="adminLoginForm" class="login-form auth-panel">
+
+<input type="text" id="adminUsername" placeholder="Admin Username" required>
+
+<input type="password" id="adminPassword" placeholder="Admin Password" required>
+
+<button type="submit">Login as Admin</button>
+
+</form>
+
+<div class="login-hint">
+<span>User signup uses your email</span>
+</div>
+
+<p id="loginError" class="login-error"></p>
+
+</div>
+
+</div>
+
+<div id="appContent" class="app-content">
+
+<header class="header">
+
+<div class="logo" id="homeBtn">
+🎌 Hanime
+</div>
+
+<div class="header-right">
+
+<input
+type="text"
+id="searchInput"
+placeholder="Search Anime..."
+>
+
+<button id="exportBtn">
+Export Anime List
+</button>
+
+<button id="logoutBtn">
+Logout
+</button>
+
+</div>
+
+</header>
+
+<section id="home" class="hero">
+
+<div class="overlay">
+
+<h1>Track Your Anime Journey</h1>
+
+<p>
+Manage, organize, and discover your favorite anime collection.
+</p>
+
+<button id="browseBtn">
+Browse Library
+</button>
+
+</div>
+
+</section>
+
+<section class="dashboard">
+
+<div class="card">
+<h3>Total Anime</h3>
+<span id="totalAnime">0</span>
+</div>
+
+<div class="card">
+<h3>Watching</h3>
+<span id="watchingCount">0</span>
+</div>
+
+<div class="card">
+<h3>Completed</h3>
+<span id="completedCount">0</span>
+</div>
+
+<div class="card">
+<h3>Episodes Watched</h3>
+<span id="episodesCount">0</span>
+</div>
+
+</section>
+
+<section id="adminPanel" class="admin-panel">
+
+<div class="admin-panel-header">
+<div>
+<h2>Admin Anime Manager</h2>
+<p>Add new anime or update an existing entry.</p>
+</div>
+</div>
+
+<form id="animeForm" class="anime-form">
+
+<input type="text" id="animeTitle" placeholder="Title" required>
+<input type="text" id="animeGenre" placeholder="Genre" required>
+<input type="number" id="animeRating" placeholder="Rating" step="0.1" min="0" max="10" required>
+<input type="text" id="animeStatus" placeholder="Status" required>
+<input type="number" id="animeEpisodes" placeholder="Episodes" min="0" required>
+<input type="url" id="animePoster" placeholder="Poster URL" required>
+<input type="url" id="animeWatchUrl" placeholder="Watch URL" required>
+<textarea id="animeDescription" placeholder="Description" rows="4" required></textarea>
+
+<div class="form-actions">
+<button type="submit" id="animeSubmitBtn">Add Anime</button>
+<button type="button" id="animeCancelBtn" class="secondary-btn">Cancel Edit</button>
+</div>
+
+</form>
+
+</section>
+
+<section class="filters">
+
+<input
+type="text"
+id="filterSearch"
+placeholder="Search Anime"
+>
+
+<select id="genreFilter">
+<option>All Genres</option>
+<option>Action</option>
+<option>Adventure</option>
+<option>Comedy</option>
+<option>Drama</option>
+<option>Fantasy</option>
+<option>Romance</option>
+<option>Sci-Fi</option>
+<option>Slice of Life</option>
+</select>
+
+<select id="statusFilter">
+<option>All Status</option>
+<option>Watching</option>
+<option>Completed</option>
+<option>Plan to Watch</option>
+<option>Dropped</option>
+</select>
+
+<select id="sortFilter">
+<option>A-Z</option>
+<option>Z-A</option>
+<option>Highest Rating</option>
+<option>Lowest Rating</option>
+<option>Newest</option>
+<option>Oldest</option>
+</select>
+
+</section>
+
+<section id="library">
+
+<h2>Anime Library</h2>
+
+<div id="animeGrid"></div>
+
+</section>
+
+<section id="statistics">
+<h2>Statistics</h2>
+<canvas id="genreChart"></canvas>
+<canvas id="statusChart"></canvas>
+<canvas id="ratingChart"></canvas>
+</section>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
