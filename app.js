@@ -243,7 +243,10 @@ adminPanel.scrollIntoView({ behavior: "smooth", block: "start" });
 function upsertAnimeFromForm(event){
 event.preventDefault();
 
-if(currentRole !== "admin") return;
+if(currentRole !== "admin") {
+alert("Admin access required");
+return;
+}
 
 const title = document.getElementById("animeTitle").value.trim();
 const genre = document.getElementById("animeGenre").value.trim();
@@ -254,12 +257,19 @@ const poster = document.getElementById("animePoster").value.trim();
 const watchUrl = document.getElementById("animeWatchUrl").value.trim();
 const description = document.getElementById("animeDescription").value.trim();
 
+if(!title || !genre || !status || !poster || !watchUrl || !description){
+alert("Please fill in all fields");
+return;
+}
+
 const anime = { title, genre, rating, status, episodes, poster, watchUrl, description };
 
 if(editingAnimeIndex === null){
 animeList.unshift(anime);
+alert("Anime added successfully!");
 } else {
 animeList[editingAnimeIndex] = anime;
+alert("Anime updated successfully!");
 }
 
 saveLocal();
@@ -404,6 +414,7 @@ localStorage.setItem("hanimeSession", JSON.stringify({ identifier: username, rol
 currentRole = "admin";
 if(loginError) loginError.textContent = "";
 updateAuthVisibility();
+attachFormListeners();
 renderAnime();
 return;
 }
@@ -737,8 +748,11 @@ behavior:"smooth"
 renderAnime();
 updateStats();
 
+// Attach form listeners
+function attachFormListeners() {
 const animeForm = document.getElementById("animeForm");
 if(animeForm){
+animeForm.removeEventListener("submit", upsertAnimeFromForm);
 animeForm.addEventListener("submit", upsertAnimeFromForm);
 }
 
@@ -746,3 +760,6 @@ const animeCancelBtn = document.getElementById("animeCancelBtn");
 if(animeCancelBtn){
 animeCancelBtn.onclick = resetAnimeForm;
 }
+}
+
+attachFormListeners();
